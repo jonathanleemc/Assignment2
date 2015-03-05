@@ -102,14 +102,14 @@
                  <strong>Sorry!</strong> Dine.in does not provide its services at your location yet!
                 </div>
             </form>
-            <form ng-submit="createAccount(email, password, password2, name)">
+            <form  ng-submit="createAccount(email, password, password2, name, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments)">
                 <table style="margin-left:auto; margin-right:auto;">
                     <tr>
                         <td style="width:200px;">
                             Email:
                         </td>
                         <td>
-                            <input class="form-control" ng-model="email" />
+                            <input ng-model="email" />
                         </td>
                     </tr>
                     <tr>
@@ -117,7 +117,7 @@
                             Password:
                         </td>
                         <td>
-                            <input class="form-control" type="password" ng-model="password" />
+                            <input type="password" ng-model="password" />
                         </td>
                     </tr>
                     <tr>
@@ -125,7 +125,7 @@
                             Re-enter Password:
                         </td>
                         <td>
-                            <input class="form-control" type="password" ng-model="password2" />
+                            <input type="password" ng-model="password2" />
                         </td>
                     </tr>
                     <tr>
@@ -133,11 +133,40 @@
                             Name:
                         </td>
                         <td>
-                            <input class="form-control" ng-model="name" />
+                            <input ng-model="name" />
                         </td>
                     </tr>
-                   
                 </table>
+                     <table style="margin-left:auto; margin-right:auto;">
+                        <tr>
+                            <td>
+                                Dietary preferences:
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="dprefhalal" >Halal
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="dprefvegetarian"> Vegetarian
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="checkbox" ng-model="dprefnobeef"> No beef
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="dprefnochicken"> No chicken
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Any other comments:
+                            </td>
+                            <td colspan='2'>
+                                <textarea ng-model="comments" rows="8" cols="40"></textarea>
+                            </td>
+                        </tr>
+                    </table>
                 <br><br>
                 <button class="btn btn-default" type="submit">Submit</button>
 
@@ -153,13 +182,13 @@
             //var packages = localStorage.getItem('packages');
             
             var app = angular.module("sampleApp", ["firebase"]);
-            var address = "http://uakk8c74aebe.amandalee2012.koding.io/Assignment2/";
+            var url = "http://uakk8c74aebe.amandalee2012.koding.io/Assignment2/";
             app.controller("formCtrl", function($scope, $firebase) {
                 var ref = new Firebase("https://assignment-2.firebaseio.com/");
                 var sync = $firebase(ref);
                 $scope.unavailarea = sync.$asArray();
                 
-                $scope.checkPostalCode = function(postalCode) {
+                $scope.checkPostalCode =function(postalCode, address) {
                     document.getElementById("alertboxPostalCode").style.display = "none";
                     document.getElementById("addressValidated1").style.display = "none";
                     document.getElementById("addressValidated2").style.display = "none";
@@ -178,29 +207,57 @@
                         document.getElementById("alertboxPostalCode").style.display = "block";
                         var usersRef = ref.child("unavailarea");
                         usersRef.push({unavailarea: postalCode});
-                        msg = 'We currently do not deliver to your area. TOO BAD TOO SAD';
+                        msg = 'We currently do not deliver to your area.';
                         
                     }
                 }
                 
-                $scope.createAccount = function(email, password, password2, name) {
+                $scope.createAccount = function(email, password, password2, name, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments) {
                     
-                    if(email!=''&&password!=''&&password2!=''&&name!=''&&address!='') {
+                    if(email!=''&&password!=''&&password2!=''&&name!='') {
                         if(password!=password2) {
-                            message = 'Passwords do not match';
+                            alert('Passwords do not match');
                         } else {
-                            var usersRef = ref.child("useracct");
-                            usersRef.push({
-                                email: email,
-                                password: password,
-                                name: name,
-                                address: localStorage.getItem('address'),
-                                postalCode: localStorage.getItem('postalCode'),
-                                //packages: packages
-                            });
+                            // var values = get_check_value();
+                            if(password!=password2) {
+                                alert('Passwords do not match');
+                            } else {
+                                if(dprefhalal!=true) {
+                                    dprefhalal=false;
+                                }
+                                if(dprefvegetarian!=true) {
+                                    dprefvegetarian=false;
+                                }
+                                if(dprefnobeef!=true) {
+                                    dprefnobeef=false;
+                                }
+                                if(dprefnochicken!=true) {
+                                    dprefnochicken=false;
+                                }
+                                if(comments==undefined) {
+                                    comments='';
+                                }
+                                // alert(dprefhalal);
+                                var usersRef = ref.child("useracct");
+                                usersRef.push({
+                                    email: email,
+                                    password: password,
+                                    name: name,
+                                    address: localStorage.getItem('address'),
+                                    postalCode: localStorage.getItem('postalcode'),
+                                    comments: comments,
+                                    // dpref: {
+                                        halal: dprefhalal,
+                                        vegetarian: dprefvegetarian,
+                                        beef: dprefnobeef,
+                                        chicken: dprefnochicken
+                                        
+                                    // } 
+                                });
+                            }
                         }
                     } else {
-                       message = 'Please fill in all fields';
+                    //   alert('Please fill in all fields');
                     }
                 }
             });
