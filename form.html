@@ -30,7 +30,7 @@
     </head>
   <body id="page-top" class="index">
   <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
-        <div class="container">
+        <div class="container" >
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -58,15 +58,16 @@
     
     
     
-<section id="aboutus"  class="bg-light-gray">
-        <div class="container" >
+<section class="bg-light-gray">
+        <div class="container"  style="margin-top:-50px;">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Sign up</h2>
                     <!--<h3 class="section-subheading text-muted">Dine.in is a one stop solution for inconvience faced.......</h3>-->
                 </div>
             </div>
-            <br><br>
+            <br>
+            <div class="alert alert-warning">Documentation for older versions of Bootbox is also available: <a href="./v3.x/">v3.x</a>, <a href="./v2.x/">v2.x</a>.</div>
         <div ng-controller="formCtrl">
         <!-- push a new message into the array -->
         <div style="width:50%; border:1px solid; margin-left:auto; margin-right:auto; text-align:center; border-radius: 25px;">
@@ -137,6 +138,7 @@
                         </td>
                     </tr>
                 </table>
+                <br>
                      <table style="margin-left:auto; margin-right:auto;">
                         <tr>
                             <td>
@@ -175,8 +177,13 @@
             </div>
             </div>
             </section>
-         
+        
         <script>
+            window.onload = function() {
+            var plan = localStorage.getItem('plan');
+            //alert(plan);
+            };
+ 
           
             var postalCode = localStorage.getItem('postalcode');
             //var packages = localStorage.getItem('packages');
@@ -189,6 +196,8 @@
                 $scope.unavailarea = sync.$asArray();
                 
                 $scope.checkPostalCode =function(postalCode, address) {
+                    
+                    
                     document.getElementById("alertboxPostalCode").style.display = "none";
                     document.getElementById("addressValidated1").style.display = "none";
                     document.getElementById("addressValidated2").style.display = "none";
