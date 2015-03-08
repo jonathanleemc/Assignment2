@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var model = require('model.js');
+var model = require('./model.js');
 var paypal = require('paypal-rest-sdk');
 
 paypal.configure({
