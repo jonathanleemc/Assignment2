@@ -81,14 +81,11 @@
             
             <div data-ng-show="logged" data-ng-disabled="!facebookReady">
                 LOG IN NOW
-                
-                
+ 
             </div>
             <div  data-ng-show="!logged" data-ng-disabled="!facebookReady">
-                
-                User id: {{id}}<br>
             Username: {{username}}
-            </div>
+            </div><br>
             
         
         
@@ -115,7 +112,7 @@
                 </table>
                 <br>
                 <button class="btn btn-default" type="submit">Check Availability</button>
-                <br>
+                <br><br><br>
                 <div id="alertboxPostalCode" class="alert alert-danger" style="width:500px; display:none; margin-left:auto; margin-right:auto;">
                            <a href="#" class="close" data-dismiss="alert">
                               &times;
@@ -123,7 +120,7 @@
                  <strong>Sorry!</strong> Dine.in does not provide its services at your location yet!
                 </div>
             </form>
-            <form  ng-submit="createAccount(email dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments)">
+            <form  ng-submit="createAccount(email, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments)">
                 <table style="margin-left:auto; margin-right:auto;">
                     <tr>
                         <td style="width:200px;">
@@ -154,6 +151,7 @@
                             </td>
                             <td>
                                 <input type="checkbox" ng-model="dprefnochicken"> No chicken
+								<br><br>
                             </td>
                         </tr>
                         <tr>
