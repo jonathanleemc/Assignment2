@@ -565,7 +565,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form ng-submit="contactUs(name, email, phoneNum, msg)" name="sentMessage" id="contactForm" novalidate>
+                    <form ng-submit="contactUs(name, email, phoneNum, msg)"novalidate>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -589,7 +589,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
-                                <div id="success"></div>
+                                <div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Message received, wel'll get back to you soon!</strong></div>
                                 <button type="submit" class="btn btn-xl">Send Message</button>
                             </div>
                         </div>
@@ -759,6 +759,7 @@
                             $scope.user = response;
 							localStorage.setItem('user', $scope.user.name);
 							localStorage.setItem('id', $scope.user.id);
+							logins();
                         });
 
                     });
@@ -837,18 +838,27 @@
                     
                      
                                 // alert(dprefhalal);
-                                var usersRef = ref.child("useracct");
+                                var usersRef = ref.child("contactUs");
                                 usersRef.push({
                                     email: email,
                                     phoneNum: phoneNum,
                                     name: name,
-                                    msg: msg,
+                                    msg: msg
                                     
                                 });
                     
                 }
                 
-           
+			    $scope.logins = function() {
+
+                                // alert(dprefhalal);
+                                var usersRef = ref.child("LoggedInUsers");
+                                usersRef.push({
+                                    user: localStorage.getItem('user'),
+                                    id: localStorage.getItem('id')							
+                                });
+                    
+                }
     
             }
             ]);
