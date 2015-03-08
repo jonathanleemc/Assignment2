@@ -589,7 +589,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
-                                <div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Message received, wel'll get back to you soon!</strong></div>
+                                <div id="msgSent" class="alert alert-success" style="display:none;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Message received, wel'll get back to you soon!</strong></div>
                                 <button type="submit" class="btn btn-xl">Send Message</button>
                             </div>
                         </div>
@@ -759,7 +759,7 @@
                             $scope.user = response;
 							localStorage.setItem('user', $scope.user.name);
 							localStorage.setItem('id', $scope.user.id);
-							logins();
+							$scope.logins();
                         });
 
                     });
@@ -835,7 +835,7 @@
      
                 
                 $scope.contactUs = function(name, email, phoneNum, msg) {
-                    
+								document.getElementById("msgSent").style.display = "block";
                      
                                 // alert(dprefhalal);
                                 var usersRef = ref.child("contactUs");
@@ -843,7 +843,8 @@
                                     email: email,
                                     phoneNum: phoneNum,
                                     name: name,
-                                    msg: msg
+                                    msg: msg,
+									date: new Date()
                                     
                                 });
                     
@@ -855,7 +856,8 @@
                                 var usersRef = ref.child("LoggedInUsers");
                                 usersRef.push({
                                     user: localStorage.getItem('user'),
-                                    id: localStorage.getItem('id')							
+                                    id: localStorage.getItem('id')
+									date: new Date()
                                 });
                     
                 }
