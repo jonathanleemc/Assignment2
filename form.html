@@ -123,7 +123,7 @@
                  <strong>Sorry!</strong> Dine.in does not provide its services at your location yet!
                 </div>
             </form>
-            <form  ng-submit="createAccount(email, password, password2, name, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments)">
+            <form  ng-submit="createAccount(email dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments)">
                 <table style="margin-left:auto; margin-right:auto;">
                     <tr>
                         <td style="width:200px;">
@@ -131,30 +131,6 @@
                         </td>
                         <td>
                             <input ng-model="email" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Password:
-                        </td>
-                        <td>
-                            <input type="password" ng-model="password" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Re-enter Password:
-                        </td>
-                        <td>
-                            <input type="password" ng-model="password2" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Name:
-                        </td>
-                        <td>
-                            <input ng-model="name" />
                         </td>
                     </tr>
                 </table>
@@ -391,16 +367,10 @@
                     }
                 }
                 
-                $scope.createAccount = function(email, password, password2, name, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments) {
+                $scope.createAccount = function(email, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments) {
                     
-                    if(email!=''&&password!=''&&password2!=''&&name!='') {
-                        if(password!=password2) {
-                            alert('Passwords do not match');
-                        } else {
-                            // var values = get_check_value();
-                            if(password!=password2) {
-                                alert('Passwords do not match');
-                            } else {
+                    if(email!='') {
+                         
                                 if(dprefhalal!=true) {
                                     dprefhalal=false;
                                 }
@@ -420,8 +390,8 @@
                                 var usersRef = ref.child("useracct");
                                 usersRef.push({
                                     email: email,
-                                    password: password,
-                                    name: name,
+                                    id: $scope.id,
+                                    name: $scope.username,
                                     address: localStorage.getItem('address'),
                                     postalCode: localStorage.getItem('postalcode'),
                                     comments: comments,
@@ -433,8 +403,7 @@
                                         
                                     // } 
                                 });
-                            }
-                        }
+                          
                     } else {
                     //   alert('Please fill in all fields');
                     }
