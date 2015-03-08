@@ -92,6 +92,8 @@ app.get('/payment/execute/', function (req, res) {
             }
             else{
                 res.json({'status':'success', 'data': agreement});
+				window.location.href = "requestDelivery.html";
+
             }
         });
     }
