@@ -74,7 +74,7 @@
                 </div>
             </div>
             <br>
-        <div ng-controller="formCtrl">
+        <div>
         <!-- push a new message into the array -->
         <div style="width:50%; border:1px solid; margin-left:auto; margin-right:auto; text-align:center; border-radius: 25px;">
         <br>
@@ -351,20 +351,17 @@
             }
         ])
              
-            
-            
-            
-            
+
             
             .controller('formCtrl', ['$scope', '$firebase', function($scope, $firebase) {
                 var ref = new Firebase("https://assignment-2.firebaseio.com/");
                 var sync = $firebase(ref);
                 
-            $scope.plan = localStorage.getItem('plan');
-            alert("plan");
+				$scope.plan = localStorage.getItem('plan');
+				//alert("plan");
 
-            $scope.username = localStorage.getItem('user');
-            $scope.id = localStorage.getItem('id');
+				$scope.username = localStorage.getItem('user');
+				$scope.id = localStorage.getItem('id');
                   
                 $scope.unavailarea = sync.$asArray();
                 
