@@ -741,6 +741,8 @@
                             $scope.logged = true;
                             $scope.me();
                             $scope.picture();
+							localStorage.setItem('user', $scope.user.name);
+							localStorage.setItem('id', $scope.user.id);
                         }
 
                     });
