@@ -1,9 +1,9 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="homePage">
 
-<head>
+<head >
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,10 +32,16 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>
+     <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+     <script src="https://cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>
+     <script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+ 
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="lib/angular-facebook.js"></script>
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" ng-controller="mainCtrl">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -77,20 +83,30 @@
                     <li style="margin-left:100px">
                         <a class="page-scroll" href="">|</a>
                     </li>
-                    <li><a class="page-scroll" href="#subscription">Sign Up</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-						<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-							<form method="post" action="login" accept-charset="UTF-8">
-								<input class="form-control" style="margin-bottom: 15px; width:200px;" type="text" placeholder="Username" id="username" name="username">
-								<input class="form-control" style="margin-bottom: 15px;" type="password" placeholder="Password" id="password" name="password">
-								<input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1">
-								<label class="string optional" for="user_remember_me"> Remember me</label>
-								<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">
-								<br>
-							</form>
-						</div>
+                    <!--<li><a class="page-scroll" href="#subscription">Sign Up</a></li>-->
+                    <!--<li class="dropdown">-->
+                    <!--data-toggle="dropdown"-->
+                    <li  data-ng-show="logged" data-ng-disabled="!facebookReady">
+                        <a>{{user.name}}</a>
                     </li>
+                    <li>
+                        <a data-ng-show="!logged" data-ng-disabled="!facebookReady"  href="#subscription"  ng-click="IntentLogin()">Sign In <strong></strong></a>
+                        <a  data-ng-show="logged" data-ng-disabled="!facebookReady" href="" ng-click="logout()">Logout</a>
+                    </li>
+                        
+                     
+                    
+						<!--<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">-->
+						<!--	<form method="post" action="login" accept-charset="UTF-8">-->
+						<!--		<input class="form-control" style="margin-bottom: 15px; width:200px;" type="text" placeholder="Username" id="username" name="username">-->
+						<!--		<input class="form-control" style="margin-bottom: 15px;" type="password" placeholder="Password" id="password" name="password">-->
+						<!--		<input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1">-->
+						<!--		<label class="string optional" for="user_remember_me"> Remember me</label>-->
+						<!--		<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">-->
+						<!--		<br>-->
+						<!--	</form>-->
+						<!--</div>-->
+                    <!--</li>-->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -115,7 +131,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">About</h2>
-                    <h3 class="section-subheading text-muted">Dine.in is a one stop solution for inconvience faced.......</h3>
+                    <h3 class="section-subheading text-muted">Dine.in is a one stop solution for inconvenience of having to battle the lunchtime crowd. We offer a meal subscription service where you can request for a meal and we bring it right to you. That means that you no longer have to battle the lunch crowd every day!</h3>
                 </div>
             </div>
             <div class="row text-center">
@@ -125,7 +141,7 @@
                         <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Delivery</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <p class="text-muted">We deliver your meals right up to your doorstep, ensuring that you get your meals hot and fresh, every single day!</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -133,7 +149,7 @@
                         <i class="fa fa-cog fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Customization</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <p class="text-muted">Pick from one of the many cuisines that we offer everyday. From Chinese to Italian to Indian, we're sure to satisfy your cravings!</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -141,7 +157,7 @@
                         <i class="fa fa-star-half-o fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Surprise</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <p class="text-muted">Can't decide what to have for the day? Pick the 'Surprise Me' option for something unexpectedly delightful!</p>
                 </div>
             </div>
         </div>
@@ -155,7 +171,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">How Dine.in works</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <!--<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
                 </div>
             </div>
             <div class="row">
@@ -170,7 +186,7 @@
                                     <h4 class="subheading">Select a subscription plan</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                    <p class="text-muted">Pick a plan that best suits you and subscribe! You will be able to start placing your orders just 3 days after your subscription has been confirmed! </p>
                                 </div>
                             </div>
                         </li>
@@ -180,10 +196,10 @@
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="subheading">Input your dietary prefernce/restriction</h4>
+                                    <h4 class="subheading">Tell us your dietary preferences</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                    <p class="text-muted">Picky about your food? Let us know what you love and what you don't, and we will ensure that the food you receive will be to your taste. </p>
                                 </div>
                             </div>
                         </li>
@@ -196,7 +212,7 @@
                                     <h4 class="subheading">Request food delivery</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                    <p class="text-muted">Let us know when you want food delivered to you by logging in and selecting the cuisine you would like to have for the day. If you're feeling adventurous, you could alternatively select the surprise option.</p>
                                 </div>
                             </div>
                         </li>
@@ -209,7 +225,7 @@
                                     <h4 class="subheading">Collect & Enjoy your meal</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                    <p class="text-muted">Once you have made your selection, just sit back and relax while we bring your meal to you. Enjoy!</p>
                                 </div>
                             </div>
                         </li>
@@ -505,7 +521,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <p class="large text-muted">Mission statement: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                    <!--<p class="large text-muted">Mission statement: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>-->
                 </div>
             </div>
         </div>
@@ -821,8 +837,219 @@
             window.location.href = "form.html";
         }
         
+  
+  
+        angular.module('homePage', ['facebook'])
+
+        .config(function(FacebookProvider) {
+          FacebookProvider.init('766382243457172');
+        })
         
-        
+        .controller('mainCtrl', [
+            '$scope',
+            '$timeout',
+            'Facebook',
+            function($scope, $timeout, Facebook) {
+
+                // Define user empty data :/
+                $scope.user = {};
+
+                // Define img
+                $scope.image = "";
+
+                // Defining user logged status
+                $scope.logged = false;
+
+
+                /**
+                 * Watch for Facebook to be ready.
+                 * There's also the event that could be used
+                 */
+                $scope.$watch(
+                        function() {
+                            return Facebook.isReady();
+                        },
+                        function(newVal) {
+                            if (newVal)
+                                $scope.facebookReady = true;
+                        }
+                );
+
+                var userIsConnected = false;
+
+                Facebook.getLoginStatus(function(response) {
+                    if (response.status == 'connected') {
+                        userIsConnected = true;
+                        $scope.$apply(function() {
+                            $scope.userIsConnected = true;
+                            $scope.logged = true;
+
+                        });
+                    }
+                });
+
+                /**
+                 * IntentLogin
+                 */
+                $scope.IntentLogin = function() {
+                    if (!userIsConnected) {
+                        $scope.login();
+                    }
+                };
+
+                /**
+                 * Login
+                 */
+                $scope.login = function() {
+                    Facebook.login(function(response) {
+                        if (response.status == 'connected') {
+                            $scope.logged = true;
+                            $scope.me();
+                            $scope.picture();
+                        }
+
+                    });
+                };
+
+                /**
+                 * me 
+                 */
+                $scope.me = function() {
+                    Facebook.api('/me', function(response) {
+                        /**
+                         * Using $scope.$apply since this happens outside angular framework.
+                         */
+                        $scope.$apply(function() {
+                            $scope.user = response;
+                        });
+
+                    });
+                };
+                /**
+                 * me 
+                 */
+                $scope.picture = function() {
+                    Facebook.api('/me/picture', {
+                        "redirect": false,
+                        "height": 200,
+                        "width": 200,
+                        "type": "normal"
+                    },
+                    function(response) {
+                        if (response && !response.error) {
+                            /* handle the result */
+                            $scope.$apply(function() {
+                                $scope.image = response.data.url;
+                            });
+                        }
+                    });
+                };
+                /**
+                 * Logout
+                 */
+                $scope.logout = function() {
+                    Facebook.logout(function() {
+                        $scope.$apply(function() {
+                            $scope.user = {};
+                            $scope.logged = false;
+                        });
+                        window.location.reload()
+                    });
+                }
+                /**
+                 * Taking approach of Events :D
+                 */
+                $scope.$on('Facebook:statusChange', function(ev, data) {
+                    console.log('Status: ', data);
+                    if (data.status == 'connected') {
+                        $scope.$apply(function() {
+                            $scope.me();
+                            $scope.picture();
+                        });
+                    } else {
+                        $scope.$apply(function() {
+
+
+                            // Dismiss byebye message after two seconds
+                            $timeout(function() {
+                                $scope.logout();
+                            }, 500000000);
+                        });
+                    }
+                });
+
+
+            }
+        ])
+        /*
+        .controller('mainCtrl', function ($scope, Facebook) {
+            $scope.logged = false;
+          $scope.loginStatus = 'disconnected';
+          $scope.facebookIsReady = false;
+          $scope.user = {};
+
+          $scope.login = function () {
+            Facebook.login(function(response) {
+              $scope.loginStatus = response.status;
+              $scope.api();
+              $scope.logged = true;
+            //   document.getElementById("loginMenu").style.display = "none";
+            //   document.getElementById("logoutMenu").style.display = "block";
+                
+
+            });
+            
+            
+          };
+          
+          Facebook.getLoginStatus(function(response) {
+
+                    if (response.status == 'connected') {
+                        userIsConnected = true;
+                        $scope.$apply(function() {
+                            $scope.userIsConnected = true;
+                            $scope.logged = true;
+
+                        });
+                    }
+                });
+
+          $scope.removeAuth = function () {
+            Facebook.api({
+              method: 'Auth.revokeAuthorization'
+            }, function(response) {
+              Facebook.logout(function(response) {
+                  
+                $scope.loginStatus = response.status;
+                // document.getElementById("logoutMenu").style.display = "none";
+                // document.getElementById("loginMenu").style.display = "block";
+                $scope.user = {};
+                $scope.logged = false;
+
+              });
+              window.location.reload();
+            });
+          };
+
+          $scope.api = function () {
+            Facebook.api('/me', function(response) {
+              $scope.user = response;
+              localStorage.setItem('userName', $scope.user.name);
+              localStorage.setItem('id', $scope.user.id);
+              
+            });
+          };
+
+          $scope.$watch(function() {
+              return Facebook.isReady();
+            }, function(newVal) {
+              if (newVal) {
+                $scope.facebookIsReady = true;
+              }
+            }
+          );
+        });*/
+    
     </script>
 
 </body>
