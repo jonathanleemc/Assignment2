@@ -853,7 +853,7 @@
                 }
 				
 				$scope.signed = false;
-				var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+				setInterval(logins, 1000); //1000 will  run it every 1 second
  
                  function logins() {
 				 console.log("ASD");
@@ -870,7 +870,7 @@
 									$scope.signed == false;
 							}
 					}	
-				}, 1000);
+				};
     
             }
             ]);
