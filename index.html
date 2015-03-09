@@ -365,7 +365,7 @@
                 </ul>
                 <div class="panel-footer">
                     <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planfour()">Subscribe</a>
-					<a class="btn btn-lg btn-block btn-warning" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin();" onclick="planfour()"  >Subscribe</a>
+					<a class="btn btn-lg btn-block btn-warning" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLoginSub4();" >Subscribe</a>
                 </div>
             </div>
         </div>
@@ -726,6 +726,14 @@
                     }
                 });
 
+				$scope.IntentLoginSub4 = function() {
+                    if (!userIsConnected) {
+                        $scope.login();
+						localStorage.setItem('plan', '4');
+						window.location.href = "form.html";		
+                    }
+                };
+				
                 /**
                  * IntentLogin
                  */
