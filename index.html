@@ -729,7 +729,7 @@
 				$scope.IntentLoginSub4 = function() {
                     if (!userIsConnected) {
 						var success = $scope.login();
-                        if(success){
+                        if(success == true){
 						alert("ASDASD");
 						localStorage.setItem('plan', '4');
 						window.location.href = "form.html";		
