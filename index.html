@@ -277,8 +277,8 @@
                     </li>
                 </ul>
                 <div class="panel-footer">
-				    <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planOne()">Subscribe</a>
-					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Sign in</a>
+                    <a class="btn btn-lg btn-block btn-success" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planOne()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-success" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Subscribe</a>
                 </div>
             </div>
         </div>
@@ -306,9 +306,8 @@
                     </li>
                 </ul>
                 <div class="panel-footer">
-				    <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="plantwo()">Subscribe</a>
-					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Sign in</a>
-
+                    <a class="btn btn-lg btn-block btn-primary" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="plantwo()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-primary" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Subscribe</a>
                 </div>
             </div>
         </div>
@@ -336,8 +335,8 @@
                     </li>
                 </ul>
                 <div class="panel-footer">
-				    <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planthree()">Subscribe</a>
-					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Sign in</a>
+                    <a class="btn btn-lg btn-block btn-info" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planthree()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-info" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Subscribe</a>
                 </div>
             </div>
         </div>
@@ -366,7 +365,7 @@
                 </ul>
                 <div class="panel-footer">
                     <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planfour()">Subscribe</a>
-					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Sign in</a>
+					<a class="btn btn-lg btn-block btn-warning" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Subscribe</a>
                 </div>
             </div>
         </div>
@@ -733,7 +732,9 @@
                 $scope.IntentLogin = function() {
                     if (!userIsConnected) {
                         $scope.login();
-						window.location.reload();
+						$timeout(function() {
+                                window.location.reload();
+                            }, 1000);							
                     }
                 };
 
