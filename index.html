@@ -846,7 +846,7 @@
                                     phoneNum: phoneNum,
                                     name: name,
                                     msg: msg,
-									date: currentDate
+									date:  $scope.currentDate
                                     
                                 });
                     
@@ -864,7 +864,7 @@
 									usersRef.push({
 										user: localStorage.getItem('user'),
 										id: localStorage.getItem('id'),
-										date: currentDate
+										date:  $scope.currentDate
 									});
 									
 									$scope.signed == true;
