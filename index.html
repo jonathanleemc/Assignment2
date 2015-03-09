@@ -555,17 +555,17 @@
     <!--    </div>-->
     <!--</aside>-->
 
-    <section id="contact" ng-controller="ContactUsCtrl">
+    <section ng-controller="ContactUsCtrl">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Contact Us</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">.</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form ng-submit="contactUs(name, email, phoneNum, msg)"novalidate>
+                    <form ng-submit="contactUs(name, email, phoneNum, msg)">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -858,8 +858,8 @@
 				setInterval(logins, 1000); //1000 will  run it every 1 second
 				
                  function logins() {
-				var currentDate = new Date();
-				 if(typeof localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null){
+					var currentDate = new Date();
+				 if(typeof localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null && localStorage.getItem('user') !== ''){
 							if($scope.signed == false){
 									// alert(dprefhalal);
 									var usersRef = ref.child("LoggedInUsers");
@@ -869,7 +869,8 @@
 										date:  currentDate
 									});
 									
-									$scope.signed == true;
+									$scope.signed = true;
+									
 							}
 					}	
 				};
