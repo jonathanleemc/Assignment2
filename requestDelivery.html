@@ -396,15 +396,14 @@
  <script>
             window.onload = function() {
 				
-
-                var user = "jonathan";
-                $(".currentDate h3").html("your new header");
-                // document.getElementById("currentDate").innerText  = "new Date()";
-            // var user = localStorage.getItem('user');
-            //alert(plan);
+				console.log("ASDASDSDMAILAI");
+             
             };
           
-            
+            var routeData = route.split("?")[0];
+			window.location.href = routeData;
+			
+			
            angular.module('app', ['facebook'])
 
         .config(function(FacebookProvider) {
@@ -412,7 +411,6 @@
         })
 
         .controller('mainCtrl', function ($scope, Facebook) {
-			window.location.reload();
           $scope.loginStatus = 'disconnected';
           $scope.facebookIsReady = false;
           $scope.user = null;
