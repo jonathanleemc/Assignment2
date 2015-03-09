@@ -249,7 +249,6 @@
      <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Subscription Plan</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
             </div>
     <div class="row">
@@ -728,14 +727,17 @@
 
 				$scope.IntentLoginSub4 = function() {
                     if (!userIsConnected) {
-						$scope.login();
-						setTimeout(function(){ 
-						localStorage.setItem('plan', '4');
-						window.location.href = "form.html";
-						}, 2000);
-  		
-						}
-                    
+						Facebook.login(function(response) {
+                        if (response.status == 'connected') {
+                            $scope.logged = true;
+                            $scope.me();
+                            $scope.picture();
+							localStorage.setItem('plan', '4');
+							window.location.href = "form.html";
+                        }
+                    });
+				 
+                   } 
                 };
 				
                 /**
