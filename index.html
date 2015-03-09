@@ -828,6 +828,8 @@
 		.controller('ContactUsCtrl', ['$scope', '$firebase', function($scope, $firebase) {
                 var ref = new Firebase("https://assignment-2.firebaseio.com/");
                 var sync = $firebase(ref);
+				
+				$scope.signed = false;
                 $scope.currentDate = new Date();
 				$scope.plan = localStorage.getItem('plan');
 				console.log($scope.plan);
@@ -852,19 +854,19 @@
                     
                 }
 				
-				$scope.signed = false;
+				
 				setInterval(logins, 1000); //1000 will  run it every 1 second
 				
                  function logins() {
-				 console.log("ASD");
-					 if(typeof localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null){
+				var currentDate = new Date();
+				 if(typeof localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null){
 							if($scope.signed == false){
 									// alert(dprefhalal);
 									var usersRef = ref.child("LoggedInUsers");
 									usersRef.push({
 										user: localStorage.getItem('user'),
 										id: localStorage.getItem('id'),
-										date:  $scope.currentDate
+										date:  currentDate
 									});
 									
 									$scope.signed == true;
