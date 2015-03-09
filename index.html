@@ -555,13 +555,12 @@
     <!--    </div>-->
     <!--</aside>-->
 
-    <section ng-controller="ContactUsCtrl">
+    <section id="contact" ng-controller="ContactUsCtrl">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Contact Us</h2>
-                    <h3 class="section-subheading text-muted">.</h3>
-                </div>
+                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -839,6 +838,7 @@
      
                 
                 $scope.contactUs = function(name, email, phoneNum, msg) {
+				console.log("ASDSADASFFW#R#QDFTESTTEST");
 								document.getElementById("msgSent").style.display = "block";
                      
                                 // alert(dprefhalal);
@@ -848,7 +848,7 @@
                                     phoneNum: phoneNum,
                                     name: name,
                                     msg: msg,
-									date:  $scope.currentDate
+									msgDate:  $scope.currentDate
                                     
                                 });
                     
@@ -858,7 +858,7 @@
 				setInterval(logins, 1000); //1000 will  run it every 1 second
 				
                  function logins() {
-					var currentDate = new Date();
+					$scope.currentDates = new Date();
 				 if(typeof localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null && localStorage.getItem('user') !== ''){
 							if($scope.signed == false){
 									// alert(dprefhalal);
@@ -866,11 +866,10 @@
 									usersRef.push({
 										user: localStorage.getItem('user'),
 										id: localStorage.getItem('id'),
-										date:  currentDate
+										loggedDate: $scope.currentDates
 									});
 									
 									$scope.signed = true;
-									
 							}
 					}	
 				};
