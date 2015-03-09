@@ -395,16 +395,11 @@
     </div>
  <script>
            angular.element(document).ready(function() {
-				console.log( "ready!" );
-				alert("ASDSADSAD");
-				 
-				var routeData = route.split("?")[0];
+				var routeData = document.URL.split("?")[0];
 			    window.location.href = routeData+"";
 			});
 					  
 
-			
-			
 			angular.module("requestDelivery", ["firebase", "facebook"])
             
             .config(function(FacebookProvider) {
@@ -554,7 +549,7 @@
                 var sync = $firebase(ref);
 				$scope.username = localStorage.getItem('user');
 				$scope.id = localStorage.getItem('id');
-				
+				var currentDate = new Date();
 		 
                 $scope.addOrder = function(meal, cuisine) {
                     var usersRef = ref.child("meal");
