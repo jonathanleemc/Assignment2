@@ -90,7 +90,7 @@
                         <a>{{user.name}}</a>
                     </li>
                     <li>
-                        <a data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()" onclick="logins();">Sign In <strong></strong></a>
+                        <a data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()" href="">Sign In <strong></strong></a>
                         <a  data-ng-show="logged" data-ng-disabled="!facebookReady" href="" ng-click="logout()">Logout</a>
                     </li>
                         
@@ -791,6 +791,8 @@
                         $scope.$apply(function() {
                             $scope.user = {};
                             $scope.logged = false;
+							localStorage.setItem('user', '');
+							localStorage.setItem('id', '');
                         });
                         window.location.reload()
                     });
@@ -851,19 +853,23 @@
                 }
 				
 				$scope.signed = false;
-                 $logins(function() {
-				 alert("ASD");
-						if($scope.signed == false){
-                                // alert(dprefhalal);
-                                var usersRef = ref.child("LoggedInUsers");
-                                usersRef.push({
-                                    user: localStorage.getItem('user'),
-                                    id: localStorage.getItem('id'),
-									date: new Date()
-                                });
-								
-								$scope.signed == false;
-						}
+				var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+ 
+                 function logins() {
+				 console.log("ASD");
+					 if(typeof localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null){
+							if($scope.signed == false){
+									// alert(dprefhalal);
+									var usersRef = ref.child("LoggedInUsers");
+									usersRef.push({
+										user: localStorage.getItem('user'),
+										id: localStorage.getItem('id'),
+										date: new Date()
+									});
+									
+									$scope.signed == false;
+							}
+					}	
 				}, 1000);
     
             }
