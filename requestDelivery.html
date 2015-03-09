@@ -30,7 +30,7 @@
     </head>
   <body id="page-top" class="index">
   <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
-        <div class="container">
+        <div class="container" ng-controller="fbController">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -394,23 +394,23 @@
         </div>
     </div>
  <script>
-            window.onload = function() {
+           $( document ).ready(function() {
+				console.log( "ready!" );
 				
-				console.log("ASDASDSDMAILAI");
-             
-            };
-          
-            var routeData = route.split("?")[0];
-			window.location.href = routeData;
+				 var routeData = route.split("?")[0];
+			    window.location.href = routeData+"";
+			});
+					  
+
 			
 			
-           angular.module('app', ['facebook'])
+           angular.module('requestDelivery', ['facebook', 'firebase'])
 
         .config(function(FacebookProvider) {
           FacebookProvider.init('766382243457172');
         })
 
-        .controller('mainCtrl', function ($scope, Facebook) {
+        .controller('fbController', function ($scope, Facebook) {
           $scope.loginStatus = 'disconnected';
           $scope.facebookIsReady = false;
           $scope.user = null;
@@ -449,7 +449,7 @@
             }
           );
           }
-          var firebase = angular.module("sampleApp", ["firebase"]);
+          var firebase = angular.module("requestDelivery", ["firebase"]);
           app.controller("TodoController", function($scope, $firebase) {
 			
                 var ref = new Firebase("https://assignment-2.firebaseio.com/");
