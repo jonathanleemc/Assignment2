@@ -549,7 +549,7 @@
         ]);
 		
 		
-		.controller('formCtrl', ['$scope', '$firebase', function($scope, $firebase) {
+		.controller('TodoController', ['$scope', '$firebase', function($scope, $firebase) {
                 var ref = new Firebase("https://assignment-2.firebaseio.com/");
                 var sync = $firebase(ref);
 				$scope.username = localStorage.getItem('user');
