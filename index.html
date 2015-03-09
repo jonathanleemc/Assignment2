@@ -829,7 +829,7 @@
                 var sync = $firebase(ref);
 				
 				$scope.signed = false;
-                $scope.currentDate = new Date();
+                var currentDate = new Date();
 				$scope.plan = localStorage.getItem('plan');
 				console.log($scope.plan);
 
@@ -848,7 +848,7 @@
                                     phoneNum: phoneNum,
                                     name: name,
                                     msg: msg,
-									msgDate:  $scope.currentDate
+									msgDate: currentDate
                                     
                                 });
                     
