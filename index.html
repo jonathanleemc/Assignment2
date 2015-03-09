@@ -728,9 +728,10 @@
 
 				$scope.IntentLoginSub4 = function() {
                     if (!userIsConnected) {
-                        $scope.login();
+                        if($scope.login()){
 						localStorage.setItem('plan', '4');
 						window.location.href = "form.html";		
+						}
                     }
                 };
 				
@@ -753,6 +754,7 @@
                             $scope.logged = true;
                             $scope.me();
                             $scope.picture();
+							return true;
                         }
 
                     });
