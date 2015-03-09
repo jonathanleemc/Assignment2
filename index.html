@@ -277,7 +277,8 @@
                     </li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-success" onclick="planOne()">Subscribe</a>
+				    <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planOne()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Sign in</a>
                 </div>
             </div>
         </div>
@@ -305,7 +306,9 @@
                     </li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-primary" onclick="plantwo()">Subscribe</a>
+				    <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="plantwo()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Sign in</a>
+
                 </div>
             </div>
         </div>
@@ -333,7 +336,8 @@
                     </li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-info" onclick="planthree()">Subscribe</a>
+				    <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planthree()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Sign in</a>
                 </div>
             </div>
         </div>
@@ -729,6 +733,7 @@
                 $scope.IntentLogin = function() {
                     if (!userIsConnected) {
                         $scope.login();
+						window.location.reload();
                     }
                 };
 
@@ -741,7 +746,6 @@
                             $scope.logged = true;
                             $scope.me();
                             $scope.picture();
-
                         }
 
                     });
@@ -814,7 +818,7 @@
                             // Dismiss byebye message after two seconds
                             $timeout(function() {
                                 $scope.logout();
-                            }, 5000);
+                            }, 500000);
                         });
                     }
                 });
