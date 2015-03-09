@@ -361,7 +361,8 @@
                     </li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-warning" onclick="planfour()">Subscribe</a>
+                    <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady" href="" onclick="planfour()">Subscribe</a>
+					<a class="btn btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()" href="">Sign in</a>
                 </div>
             </div>
         </div>
@@ -805,6 +806,7 @@
                         $scope.$apply(function() {
                             $scope.me();
                             $scope.picture();
+							asascacqw
                         });
                     } else {
                         $scope.$apply(function() {
@@ -849,7 +851,7 @@
                                     phoneNum: phoneNum,
                                     name: name,
                                     msg: msg,
-									msgDate: currentDate
+									msgDate: currentDate + ""
                                     
                                 });
                     
@@ -859,7 +861,7 @@
 			setInterval(logins, 1000); //1000 will  run it every 1 second
 				
                  function logins() {
-					$scope.currentDates = new Date();
+				currentDates = new Date();
 				 if(typeof localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null && localStorage.getItem('user') !== ''){
 							if($scope.signed == false){
 									// alert(dprefhalal);
@@ -867,7 +869,7 @@
 									usersRef.push({
 										user: localStorage.getItem('user'),
 										id: localStorage.getItem('id'),
-										loggedDate: $scope.currentDates
+										loggedDate: currentDates + ""
 									});
 									
 									$scope.signed = true;
