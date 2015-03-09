@@ -124,7 +124,7 @@
             </form>
 			</div>
 			<hr>
-			<div style="width:50%;   margin-left:auto; margin-right:auto; text-align:center;  ">
+			<div id="secondStep" style="width:50%; margin-left:auto; margin-right:auto; text-align:center; display:none; ">
             <form  ng-submit="createAccount(email, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments)">
 			<br>
                 <table style="margin-left:auto; margin-right:auto;">
@@ -347,7 +347,7 @@
                 
                 $scope.checkPostalCode =function(postalCode, address) {
                     
-                    
+                    document.getElementById("secondStep").slideDown();
                     document.getElementById("alertboxPostalCode").style.display = "none";
                     document.getElementById("addressValidated1").style.display = "none";
                     document.getElementById("addressValidated2").style.display = "none";
