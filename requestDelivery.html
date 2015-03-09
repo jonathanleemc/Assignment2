@@ -444,14 +444,16 @@
           
           var firebase = angular.module("sampleApp", ["firebase"]);
           app.controller("TodoController", function($scope, $firebase) {
+			
                 var ref = new Firebase("https://assignment-2.firebaseio.com/");
                 var sync = $firebase(ref);
                 $scope.addOrder = function(meal, cuisine) {
-                    
+                    $scope.currentTime = new Date();
                     var usersRef = ref.child("meal");
                     usersRef.push({
                         meal: meal,
-                        cuisine: cuisine
+                        cuisine: cuisine,
+						deliveryDate: $scope.currentTime
                     });
                 }
     

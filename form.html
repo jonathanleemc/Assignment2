@@ -360,13 +360,15 @@
                         //Go next page
                         localStorage.setItem('postalcode', postalCode);
                         localStorage.setItem('address', address);
-						document.getElementById("secondStep").style.display = "block";
-						document.getElementById("secondStep").slideDown();
+						//document.getElementById("secondStep").style.display = "block";
+						$("#secondStep").slideDown();
                         
                     } else {
                         document.getElementById("alertboxPostalCode").style.display = "block";
                         var usersRef = ref.child("unavailarea");
-                        usersRef.push({unavailarea: postalCode});
+                        usersRef.push({unavailarea: postalCode,
+										username: $scope.username,
+										id: $scope.id});
                         msg = 'We currently do not deliver to your area.';
                         
                     }
