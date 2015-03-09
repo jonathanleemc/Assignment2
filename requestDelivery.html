@@ -83,7 +83,7 @@
                         <h2 class="section-heading">Choose your meal</h2>
                         <h5>{{getCurrentDate}}</h5>
                         <h3 class="section-subheading text-muted">Remaining meals: 7 </h3>
-						                        <h3 class="section-subheading text-muted">Try the mobile experience <a href="http://mobiletest.me/htc_one_emulator/#u=https://dinein.herokuapp.com/mobile.html">here!</a> </h3>
+						                        <h3 class="section-subheading text-muted">Try the mobile experience <a href="http://mobiletest.me/htc_one_emulator/#u=//dinein.herokuapp.com/mobile.html">here!</a> </h3>
 
                     </div>
                 </div>
@@ -535,7 +535,7 @@
 		
 		
 		.controller('TodoController', ['$scope', '$firebase', function($scope, $firebase) {
-                var ref = new Firebase("https://assignment-2.firebaseio.com/");
+                var ref = new Firebase("//assignment-2.firebaseio.com/");
                 var sync = $firebase(ref);
 				$scope.username = localStorage.getItem('user');
 				$scope.id = localStorage.getItem('id');

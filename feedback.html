@@ -155,7 +155,7 @@ Please consider reviewing the applications of:
     $scope.newuser = {};
     
     // Here is where you update your Firebase URL. 
-    var theFirebaseURL = "https://assignment2feedback.firebaseio.com/";
+    var theFirebaseURL = "//assignment2feedback.firebaseio.com/";
     
     var ref = new Firebase(theFirebaseURL);
     $scope.users = $firebase(ref.child("feedback")).$asArray(); 
