@@ -91,11 +91,8 @@ app.get('/payment/execute/', function (req, res) {
                 throw error;
             }
             else{
-                //res.json({'status':'success', 'data': agreement});
-				response.writeHead(301,
-				  {Location: '//dinein.herokuapp.com/requestDelivery.html'}
-				);
-				response.end();
+                res.json({'status':'success', 'data': agreement});
+				
             }
         });
     }
