@@ -728,11 +728,12 @@
 
 				$scope.IntentLoginSub4 = function() {
                     if (!userIsConnected) {
-						var success = $scope.login();
-                        if(success == true){
-						alert("ASDASD");
+						$scope.login();
+						setTimeout(function(){ 
 						localStorage.setItem('plan', '4');
-						window.location.href = "form.html";		
+						window.location.href = "form.html";
+						}, 2000);
+  		
 						}
                     }
                 };
