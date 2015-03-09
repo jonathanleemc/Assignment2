@@ -404,57 +404,157 @@
 
 			
 			
-           angular.module('requestDelivery', ['facebook', 'firebase'])
+			angular.module("requestDelivery", ["firebase", "facebook"])
+            
+            .config(function(FacebookProvider) {
+              FacebookProvider.init('766382243457172');
+            })
+        
+       .controller('fbController', [
+            '$scope',
+            '$timeout',
+            'Facebook',
+            function($scope, $timeout, Facebook) {
 
-        .config(function(FacebookProvider) {
-          FacebookProvider.init('766382243457172');
-        })
+                // Define user empty data :/
+                $scope.user = {};
 
-        .controller('fbController', function ($scope, Facebook) {
-          $scope.loginStatus = 'disconnected';
-          $scope.facebookIsReady = false;
-          $scope.user = null;
-		  				$scope.username = localStorage.getItem('user');
-				$scope.id = localStorage.getItem('id');
-				
+                // Define img
+                $scope.image = "";
 
-          $scope.login = function () {
-            Facebook.login(function(response) {
-              $scope.loginStatus = response.status;
-            });
-          };
+                // Defining user logged status
+                $scope.logged = false;
 
-          $scope.removeAuth = function () {
-            Facebook.api({
-              method: 'Auth.revokeAuthorization'
-            }, function(response) {
-              Facebook.getLoginStatus(function(response) {
-                $scope.loginStatus = response.status;
-              });
-            });
-          };
 
-          $scope.api = function () {
-            Facebook.api('/me', function(response) {
-              $scope.user = response;
-            });
-          };
+                /**
+                 * Watch for Facebook to be ready.
+                 * There's also the event that could be used
+                 */
+                $scope.$watch(
+                        function() {
+                            return Facebook.isReady();
+                        },
+                        function(newVal) {
+                            if (newVal)
+                                $scope.facebookReady = true;
+                        }
+                );
 
-          $scope.$watch(function() {
-              return Facebook.isReady();
-            }, function(newVal) {
-              if (newVal) {
-                $scope.facebookIsReady = true;
-              }
+                var userIsConnected = false;
+
+                Facebook.getLoginStatus(function(response) {
+                    if (response.status == 'connected') {
+                        userIsConnected = true;
+                        $scope.$apply(function() {
+                            $scope.userIsConnected = true;
+                            $scope.logged = true;
+
+                        });
+                    }
+                });
+
+                /**
+                 * IntentLogin
+                 */
+                $scope.IntentLogin = function() {
+                    if (!userIsConnected) {
+                        $scope.login();
+                    }
+                };
+
+                /**
+                 * Login
+                 */
+                $scope.login = function() {
+                    Facebook.login(function(response) {
+                        if (response.status == 'connected') {
+                            $scope.logged = true;
+                            $scope.me();
+                            $scope.picture();
+                        }
+
+                    });
+                };
+
+                /**
+                 * me 
+                 */
+                $scope.me = function() {
+                    Facebook.api('/me', function(response) {
+                        /**
+                         * Using $scope.$apply since this happens outside angular framework.
+                         */
+                        $scope.$apply(function() {
+                            $scope.user = response;
+                        });
+
+                    });
+                };
+                /**
+                 * me 
+                 */
+                $scope.picture = function() {
+                    Facebook.api('/me/picture', {
+                        "redirect": false,
+                        "height": 200,
+                        "width": 200,
+                        "type": "normal"
+                    },
+                    function(response) {
+                        if (response && !response.error) {
+                            /* handle the result */
+                            $scope.$apply(function() {
+                                $scope.image = response.data.url;
+                            });
+                        }
+                    });
+                };
+                /**
+                 * Logout
+                 */
+                $scope.logout = function() {
+                    Facebook.logout(function() {
+                        $scope.$apply(function() {
+                            $scope.user = {};
+                            $scope.logged = false;
+                        });
+					window.location.href = "index.html";
+                    });
+                }
+                /**
+                 * Taking approach of Events :D
+                 */
+                $scope.$on('Facebook:statusChange', function(ev, data) {
+                    console.log('Status: ', data);
+                    if (data.status == 'connected') {
+                        $scope.$apply(function() {
+                            $scope.me();
+                            $scope.picture();
+                        });
+                    } else {
+                        $scope.$apply(function() {
+
+
+                            // Dismiss byebye message after two seconds
+                            $timeout(function() {
+                                $scope.logout();
+                            }, 500000000);
+                        });
+                    }
+                });
+
+
             }
-          );
-          }
-          var firebase = angular.module("requestDelivery", ["firebase"]);
-          app.controller("TodoController", function($scope, $firebase) {
-			
+        ])
+		
+		
+		.controller('formCtrl', ['$scope', '$firebase', function($scope, $firebase) {
                 var ref = new Firebase("https://assignment-2.firebaseio.com/");
                 var sync = $firebase(ref);
-				var currentDate = new Date();
+				$scope.username = localStorage.getItem('user');
+				$scope.id = localStorage.getItem('id');
+				
+		 
                 $scope.addOrder = function(meal, cuisine) {
                     var usersRef = ref.child("meal");
                     usersRef.push({
