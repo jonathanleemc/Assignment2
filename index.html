@@ -830,6 +830,7 @@
 				
 				$scope.signed = false;
                 var currentDate = new Date();
+				console.log(currentDate);
 				$scope.plan = localStorage.getItem('plan');
 				console.log($scope.plan);
 
@@ -855,7 +856,7 @@
                 }
 				
 				
-			/*	setInterval(logins, 1000); //1000 will  run it every 1 second
+			setInterval(logins, 1000); //1000 will  run it every 1 second
 				
                  function logins() {
 					$scope.currentDates = new Date();
@@ -872,7 +873,7 @@
 									$scope.signed = true;
 							}
 					}	
-				};*/
+				};
     
             }
             ]);
