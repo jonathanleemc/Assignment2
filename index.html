@@ -90,7 +90,7 @@
                         <a>{{user.name}}</a>
                     </li>
                     <li>
-                        <a data-ng-show="!logged" data-ng-disabled="!facebookReady"  href="#subscription"  ng-click="IntentLogin()">Sign In <strong></strong></a>
+                        <a data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()" onclick="logins();">Sign In <strong></strong></a>
                         <a  data-ng-show="logged" data-ng-disabled="!facebookReady" href="" ng-click="logout()">Logout</a>
                     </li>
                         
@@ -759,7 +759,7 @@
                             $scope.user = response;
 							localStorage.setItem('user', $scope.user.name);
 							localStorage.setItem('id', $scope.user.id);
-							$scope.logins();
+				
                         });
 
                     });
@@ -812,7 +812,7 @@
                             // Dismiss byebye message after two seconds
                             $timeout(function() {
                                 $scope.logout();
-                            }, 500000000);
+                            }, 5000);
                         });
                     }
                 });
@@ -849,9 +849,10 @@
                                 });
                     
                 }
-                
-			    $scope.logins = function() {
-
+				
+				$scope.signed = false;
+                 $logins(function() {
+						if($scope.signed == false){
                                 // alert(dprefhalal);
                                 var usersRef = ref.child("LoggedInUsers");
                                 usersRef.push({
@@ -859,8 +860,10 @@
                                     id: localStorage.getItem('id'),
 									date: new Date()
                                 });
-                    
-                }
+								
+								$scope.signed == false;
+						}
+				}, 1000);
     
             }
             ]);

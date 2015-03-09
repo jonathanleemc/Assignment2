@@ -92,10 +92,7 @@ app.get('/payment/execute/', function (req, res) {
             }
             else{
                 res.json({'status':'success', 'data': agreement});
-				response.writeHead(301,
-				  {Location: 'requestDelivery.html'}
-				);
-				response.end();
+				 
             }
         });
     }
