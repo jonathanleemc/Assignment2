@@ -824,11 +824,11 @@
         ])
 		
 		
-		$scope.currentDate = new Date();
+		
 		.controller('ContactUsCtrl', ['$scope', '$firebase', function($scope, $firebase) {
                 var ref = new Firebase("https://assignment-2.firebaseio.com/");
                 var sync = $firebase(ref);
-                
+                $scope.currentDate = new Date();
 				$scope.plan = localStorage.getItem('plan');
 				console.log($scope.plan);
 
