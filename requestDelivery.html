@@ -197,7 +197,7 @@
                             <img style="margin-left:auto; margin-right:auto;" class="img-responsive" src="img/deliveryico.png" alt="">
                             <script>
                             
-                                var firebase = angular.module("sampleApp", ["firebase"]);
+                                var firebase = angular.module("requestDelivery", ["firebase"]);
                                 firebase.controller("TodoController", function($scope, $firebase) {
                                     var ref = new Firebase("https://assignment-2.firebaseio.com/");
                                     var sync = $firebase(ref);
@@ -394,7 +394,7 @@
         </div>
     </div>
  <script>
-           $(document).ready(function() {
+           angular.element(document).ready(function() {
 				console.log( "ready!" );
 				alert("ASDSADSAD");
 				 
